@@ -1,0 +1,15 @@
+.chessboard {
+  width: max-content;
+  height: auto;
+  background-color: #333743;
+  display: grid;
+  grid-template-columns: repeat(8, 100px);
+  grid-template-rows: repeat(8, 100px);
+  gap: 0.4rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}

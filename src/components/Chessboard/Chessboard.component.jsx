@@ -1,22 +1,15 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import Tile from '../Tile/Tile.component';
 import './Chessboard.styles.css';
-
-import knight from '../../assets/knight.png';
-import pawn from '../../assets/pawn.png';
 
 const verticalAxis = [1, 2, 3, 4, 5, 6, 7, 8];
 const horizontalAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 const Chessboard = () => {
-  //--start-projectDefaults--//
+  //--Defaults--//
   let tileInfo = [];
-  const defaultClassList = '';
-  const knightPosition = 'selected';
   const chessBoardRef = useRef(null);
-
-  const [classList, setClassList] = useState(defaultClassList);
   //--end-projectDefaults--//
 
   //--start-building board--//
@@ -26,6 +19,8 @@ const Chessboard = () => {
       let tileColor = '';
       const number = i + j + 2;
       tileColor = number % 2 === 0 ? 'light-tiles' : 'dark-tiles';
+
+      //getting coords of validMoves
       let horizontalPosition = i + 1;
       let verticalPosition = j + 1;
 
@@ -58,18 +53,18 @@ const Chessboard = () => {
         tileId: horizontalAxis[i] + verticalAxis[j].toString(),
         color: tileColor,
         classList: `${horizontalPosition},${verticalPosition}`,
-        // sequenceNumber: ,
         x: horizontalPosition,
         y: verticalPosition,
         possibleMoves: {
-          move_01: `${move_1x},${move_1y}`,
-          move_02: `${move_2x},${move_2y}`,
-          move_03: `${move_3x},${move_3y}`,
-          move_04: `${move_4x},${move_4y}`,
-          move_05: `${move_5x},${move_5y}`,
-          move_06: `${move_6x},${move_6y}`,
-          move_07: `${move_7x},${move_7y}`,
-          move_08: `${move_8x},${move_8y}`,
+          //is noted from topLeft of selected tile, going clockwise
+          move_01: `${move_1x},${move_1y}`, //topLeft
+          move_02: `${move_2x},${move_2y}`, //topRight
+          move_03: `${move_3x},${move_3y}`, //rightTop
+          move_04: `${move_4x},${move_4y}`, //rightBottom
+          move_05: `${move_5x},${move_5y}`, //bottomRight
+          move_06: `${move_6x},${move_6y}`, //bottomLeft
+          move_07: `${move_7x},${move_7y}`, //leftBottom
+          move_08: `${move_8x},${move_8y}`, // leftTop
         },
       });
     }
@@ -77,53 +72,56 @@ const Chessboard = () => {
   //--end-building board--//
 
   //--start-click handlers--//
+  const handleClick = (event) => {
+    const activeTile = document.getElementById(event.target.id);
+    activeTile.classList.add('selected');
+
+    //get the properties of the shown validMoves
+    const getProperties = tileInfo.filter((tiles) => {
+      return event.target.id === tiles.tileId;
+    });
+    const properties = getProperties[0];
+
+    //getting the array of computed validMoves
+    const validMoves = Object.values(properties.possibleMoves);
+
+    //comparing computed validMoves to existing ones in the board and filtering them out
+    const moves = tileInfo.filter((tiles) => {
+      return validMoves.includes(tiles.classList);
+    });
+
+    //rendering the styling for the final list of valid moves
+    moves.forEach((tile) => {
+      document.getElementById(tile.tileId).classList.add('valid-move');
+    });
+  };
+
   const handleRightClick = (event) => {
     event.preventDefault();
     const activeTile = document.getElementById(event.target.id);
     activeTile.classList.remove('selected');
     activeTile.classList.remove('valid-move');
 
+    //get the properties of the shown validMoves
     const getProperties = tileInfo.filter((tiles) => {
       return event.target.id === tiles.tileId;
     });
-
     const properties = getProperties[0];
 
+    //getting the array of computed validMoves
     const validMoves = Object.values(properties.possibleMoves);
 
+    //comparing computed validMoves to existing ones in the board and filtering them out
     const moves = tileInfo.filter((tiles) => {
       return validMoves.includes(tiles.classList);
     });
 
+    //removing indicators for the final list of valid moves
     moves.forEach((tile) => {
       document.getElementById(tile.tileId).classList.remove('valid-move');
     });
-
-    console.log(validMoves, moves);
   };
 
-  const handleClick = (event) => {
-    const activeTile = document.getElementById(event.target.id);
-    activeTile.classList.add('selected');
-
-    const getProperties = tileInfo.filter((tiles) => {
-      return event.target.id === tiles.tileId;
-    });
-
-    const properties = getProperties[0];
-
-    const validMoves = Object.values(properties.possibleMoves);
-
-    const moves = tileInfo.filter((tiles) => {
-      return validMoves.includes(tiles.classList);
-    });
-
-    moves.forEach((tile) => {
-      document.getElementById(tile.tileId).classList.add('valid-move');
-    });
-
-    console.log(validMoves, moves);
-  };
   //--end-click handlers--//
 
   return (

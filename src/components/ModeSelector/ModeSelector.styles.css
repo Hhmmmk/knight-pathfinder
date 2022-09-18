@@ -16,17 +16,16 @@
 .modes-container {
   width: 100%;
   border-radius: 1rem;
-  display: flex;
-  flex-direction: row;
-  padding: 2rem;
-  justify-content: space-between;
+  padding: 1rem;
   background-color: #bcbfc6;
+  color: #333743;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
   -ms-border-radius: 1rem;
   -o-border-radius: 1rem;
   box-shadow: 0 4px 10px rgba(52, 64, 71, 0.74);
   z-index: 10;
+  text-align: center;
 }
 
 .clear-container {
@@ -34,4 +33,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.indicators {
+  margin-top: 0.5rem;
 }

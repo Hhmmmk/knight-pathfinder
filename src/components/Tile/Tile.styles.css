@@ -6,6 +6,7 @@
   -ms-border-radius: 0.3rem;
   -o-border-radius: 0.3rem;
   border: none;
+  cursor: pointer;
 }
 
 .tiles:hover {

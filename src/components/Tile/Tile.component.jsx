@@ -5,15 +5,16 @@ import './Tile.styles.css';
 class Tile extends Component {
   render() {
     const { info, onClickHandler, onRClickHandler } = this.props;
-    const { tileId, color, classList } = info;
+    const { tileId, color, classList, x, y, possibleMoves } = info;
+    const { move_04 } = possibleMoves;
     return (
       <div
         onContextMenu={onRClickHandler}
         onClick={onClickHandler}
         id={tileId}
-        className={`tiles ${color} ${classList}`}
+        className={`tiles ${color} ${classList} ${x},${y}`}
       >
-        <span>{`[${tileId}]`}</span>
+        <span>{`[${tileId}] x: ${x} y: ${y} ${move_04}`}</span>
       </div>
     );
   }

@@ -73,6 +73,16 @@ const Chessboard = () => {
 
   //--start-click handlers--//
   const handleClick = (event) => {
+    //clearing the board
+    console.clear();
+
+    //clear board before rendering new input and valid moves
+    tileInfo.forEach((tile) => {
+      document.getElementById(tile.tileId).classList.remove('selected');
+      document.getElementById(tile.tileId).classList.remove('valid-move');
+    });
+
+    //highlighting th input
     const activeTile = document.getElementById(event.target.id);
     activeTile.classList.add('selected');
 
@@ -94,6 +104,27 @@ const Chessboard = () => {
     moves.forEach((tile) => {
       document.getElementById(tile.tileId).classList.add('valid-move');
     });
+
+    //for showing data on console
+    const movesArray = moves.map((tile) => {
+      return tile.classList;
+    });
+
+    let stringValidMoves = Object.values(movesArray)
+      .map((tile) => {
+        return ' (' + tile + ')';
+      })
+      .toString();
+
+    console.log(
+      'User input for knight location: ',
+      event.target.id,
+      '(',
+      properties.classList,
+      ')'
+    );
+
+    console.log('Valid moves: ', stringValidMoves);
   };
 
   const handleRightClick = (event) => {
@@ -140,5 +171,4 @@ const Chessboard = () => {
     </div>
   );
 };
-
 export default Chessboard;

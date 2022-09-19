@@ -1,4 +1,4 @@
-import Button from '../Button/Button.component';
+// import Button from '../Button/Button.component';
 
 import './ModeSelector.styles.css';
 
@@ -23,9 +23,10 @@ const ModeSelector = () => {
           <p>Green indicator highlights the valid moves for your input</p>
         </div>
       </div>
-      <div className='clear-container'>
+      {/* can be an added feature in the future*/}
+      {/* <div className='clear-container'>
         <Button buttonType='secondary'>Clear Board</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

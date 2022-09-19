@@ -3,8 +3,8 @@
   height: auto;
   background-color: #333743;
   display: grid;
-  grid-template-columns: repeat(8, 100px);
-  grid-template-rows: repeat(8, 100px);
+  grid-template-columns: repeat(8, 80px);
+  grid-template-rows: repeat(8, 80px);
   gap: 0.4rem;
   padding: 1rem;
   border-radius: 1rem;
